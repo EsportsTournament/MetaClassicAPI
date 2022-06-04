@@ -34,14 +34,13 @@ let tournamentSchema = new mongoose.Schema({
         type: String
     },
     createdOn: {
-        type: String
+        type: Date
     },
     streaming: {
         type: [
             {
                 platformName: String,
                 applyPromotion: Boolean,
-
             }
         ]
     },
@@ -156,6 +155,9 @@ let tournamentSchema = new mongoose.Schema({
     tournamentAwards:  {
         type: [String]   
     },
+    images: {
+        type: [String]
+    }
 })
 
 mongoose.model('Tournament', tournamentSchema)
