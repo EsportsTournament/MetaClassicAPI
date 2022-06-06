@@ -2,7 +2,7 @@
   "name": "metaclassicapi",
   "version": "1.0.0",
   "description": "Backend for Meta Classic Tournament Organising Platform",
-  "main": "index.js",
+  "start": "node index.js",
   "scripts": {
     "test": "test"
   },
@@ -15,5 +15,8 @@
     "mongoose": "^6.3.5",
     "nodemon": "^2.0.16",
     "properties-reader": "^2.2.0"
+  },
+  "engines": {
+    "node": "16.14.2"
   }
 }

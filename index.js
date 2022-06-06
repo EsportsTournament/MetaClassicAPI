@@ -2,13 +2,12 @@ require('./db/db');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-// const properties = require('./config/properties');
+const properties = require('./config/properties');
 const userRouter = require('./router/user.router');
 const app = express();
 
-const PORT = 8890
-app.listen(PORT, () => {
-    console.log('Express is serving at port: ', PORT);
+app.listen(properties.port, () => {
+    console.log('Express is serving at port: ', properties.port);
 });
 
 app.use(cors());
