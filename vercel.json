@@ -1,0 +1,22 @@
+{
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "access-control-allow-origin",
+                    "value": "*"
+                }
+            ]
+        }
+    ],
+    "rewrites": [
+        { "source": "/(.*)", "destination": "/" }
+      ],
+    "builds": [
+        {
+            "src": "./main.js",
+            "use": "@vercel/node"
+        }
+    ]
+}
