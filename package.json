@@ -2,9 +2,10 @@
   "name": "metaclassicapi",
   "version": "1.0.0",
   "description": "Backend for Meta Classic Tournament Organising Platform",
-  "start": "node index.js",
+  "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "node index.js"
   },
   "author": "aditya-thakur",
   "license": "MIT",
