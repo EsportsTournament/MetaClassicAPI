@@ -1,10 +1,10 @@
 const properties = require('../config/properties');
 const mongoose = require('mongoose');
 console.log(properties.dburl);
-mongoose.connect(properties.dburl, {}).then(
+mongoose.connect(properties.dburl,  { useUnifiedTopology: true }).then(
     () => { console.log('connected to db'); }
 ).catch(
-    (err) => { console.log(err); }
+    (err) => { console.log('err connecting to db:',err); }
 );
 
 require('./../model/user.model');
