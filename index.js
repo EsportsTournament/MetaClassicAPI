@@ -6,8 +6,8 @@ const properties = require('./config/properties');
 const userRouter = require('./router/user.router');
 const app = express();
 
-app.listen(properties.port, () => {
-    console.log('Express is serving at port: ', properties.port);
+app.listen(process.env.PORT || properties.port, () => {
+    console.log('Express is serving at port: ', process.env.PORT || properties.port);
 });
 
 app.use(cors());
