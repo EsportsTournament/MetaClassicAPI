@@ -16,8 +16,8 @@
       ],
     "builds": [
         {
-            "src": "./main.js",
-            "use": "@vercel/node"
+            "src": "./index.js",
+            "use": "@now/node"
         }
     ]
 }
