@@ -27,6 +27,7 @@ function fetchUser(req, res) {
                 console.log(err, docs);
                 res.json(docs);
             } else {
+                console.log(err);
                 insertUser(req, res);
             }
         });
