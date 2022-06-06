@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
+    console.log('hitting login');
     fetchUser(req, res);
 });
 
