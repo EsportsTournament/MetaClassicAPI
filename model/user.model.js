@@ -10,7 +10,7 @@ let userSchema = new mongoose.Schema({
     password: {
         type: String
     },
-    mobileNo: {
+    phoneNumber: {
         type: [String]
     },
     gender: {
@@ -42,6 +42,18 @@ let userSchema = new mongoose.Schema({
     },
     awards: {
         type: [String]
+    },
+    games: {
+        type: [
+            {
+                gameName: String,
+                playerId: String,
+                playerName: String,
+                addedOn: Date,
+                modifiedOn: Date,
+                gameTags: [String],
+            }
+        ]
     },
     metaData: [{
         type: {
