@@ -1,9 +1,11 @@
 // ToBe Implemented
 const mongoose = require('mongoose');
-const Logger = require('nodemon/lib/utils/log');
-const user = mongoose.model('User');
+const Logger = require('nodemon/lib/utils/log.js');
+
+const tournament = mongoose.model('tournament');
 
 function createNewTournament(req, res) {
+
     console.log('need to register ', req.body.email);
     var newTournament = new tournament(); 
         newTournament.tournamentId = req.body.tournamentId;
@@ -19,10 +21,10 @@ function createNewTournament(req, res) {
         newTournament.matches = req.body.matches;
         newTournament.save(function(err, tournament) {
             if (err) {
-                Logger.error(err);
+                console.log(err);
                 res.send(err);
             } else {
-                Logger.info('Tournament created successfully');
+                console.log('Tournament created successfully');
                 res.send(tournament);
             }
         });
@@ -30,13 +32,14 @@ function createNewTournament(req, res) {
 
     }
 // Function to view the tournament details
-function viewTournamentDetails(req, res) {
+function viewAllTournamentDetails(req, res) {
     tournament.find({}, function(err, tournament) {
         if (err) {
-            Logger.error(err);
+            console.log(err)
             res.send(err);
         } else {
-            Logger.info('Tournament details fetched successfully');
+            
+            console.log('Tournament details fetched successfully');
             res.send(tournament);
         }
     });
@@ -46,11 +49,12 @@ function viewTournamentDetails(req, res) {
 function joinTournament(req, res) {
     tournament.findOne({ tournamentId: req.body.tournamentId }, function(err, tournament) {
         if (err) {
-            Logger.error(err);
+            console.log(err)
             res.send(err);
         } else {
-            Logger.info("Tournament joined successfully");
+            console.log("Tournament joined successfully");
             res.send(tournament);
         }
     });
 }
+module.exports = { createNewTournament, viewAllTournamentDetails, joinTournament };
