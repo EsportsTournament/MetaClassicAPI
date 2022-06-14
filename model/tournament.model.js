@@ -160,4 +160,4 @@ let tournamentSchema = new mongoose.Schema({
     }
 })
 
-mongoose.model('Tournament', tournamentSchema)
+mongoose.model('tournament', tournamentSchema)
