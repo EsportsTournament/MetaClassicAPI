@@ -1,0 +1,11 @@
+{
+    "ssl": {
+        "key": "/etc/ssl/path",
+        "cert": "/etc/ssl/path",
+        "caBundle": "/etc/ssl/path"
+    },
+    "redisSettings": {
+        "host": "127.0.0.1",
+        "port": 6379
+    }
+}
