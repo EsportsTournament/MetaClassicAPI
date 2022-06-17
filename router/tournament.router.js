@@ -18,7 +18,7 @@ router.get("/view",(req,res)=>{
     viewAllTournamentDetails(req,res);
 })
 
-router.get("/join",(req,res)=>{
+router.post("/join",(req,res)=>{
     console.log("Joining the tournament");
     joinTournament(req,res);
 })
