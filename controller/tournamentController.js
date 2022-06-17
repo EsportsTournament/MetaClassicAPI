@@ -60,7 +60,7 @@ function joinTournament(req, res) {
 
 //Function to get the tournament details using the tournament ID
 function getTournamentDetails(req, res) {
-    tournament.findOne({ tournamentId: req.body.tournamentId }, function(err, tournament) {
+    tournament.findOne({ tournamentId: req.query.tournamentId }, function(err, tournament) {
         if (err) {
             console.log(err)
             res.send(err);
