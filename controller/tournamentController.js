@@ -57,4 +57,16 @@ function joinTournament(req, res) {
         }
     });
 }
-module.exports = { createNewTournament, viewAllTournamentDetails, joinTournament };
+
+//Function to get the tournament details using the tournament ID
+function getTournamentDetails(req, res) {
+    tournament.findOne({ tournamentId: req.params.tournamentId }, function(err, tournament) {
+        if (err) {
+            console.log(err)
+            res.send(err);
+        } else {
+            console.log("Tournament details fetched successfully");
+            res.send(tournament);
+        }
+    })};
+module.exports = { createNewTournament, viewAllTournamentDetails, joinTournament, getTournamentDetails };
