@@ -1,6 +1,5 @@
 const properties = require('../config/properties');
 const mongoose = require('mongoose');
-console.log(properties.dburl);
 mongoose.connect(properties.dburl,  { useUnifiedTopology: true }).then(
     () => { console.log('connected to db'); }
 ).catch(
