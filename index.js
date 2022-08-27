@@ -13,7 +13,7 @@ const properties = require('./config/properties');
 const userRouter = require('./router/user.router');
 const tournamentRouter = require('./router/tournament.router');
 const commonRouter = require('./router/common.router');
-const UI_ROOT_URI = ["http://localhost:3000","https://metclan.xyz"]; 
+const UI_ROOT_URI = ["http://localhost:3000","https://www.metclan.xyz"]; 
 const app = express();
 const morgan = require('morgan');
 
