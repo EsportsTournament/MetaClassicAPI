@@ -3,7 +3,7 @@
 */
 
 process.env.NODE_CONFIG_DIR = __dirname + '/config/';
-config = require('config');
+// config = require('config');
 
 require('./db/db');
 const express = require('express');
