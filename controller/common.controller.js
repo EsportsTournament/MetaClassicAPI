@@ -1,15 +1,17 @@
 const properties = require('../config/properties');
 const axios = require('axios');
+const { Client } = require('clashofclans.js');
+const client = new Client();
+(async function () {
+  await client.login({ email: 'adityathakur532@gmail.com', password: 'qdiJ4aGfbnXG!yM' });
+  console.log('connected to coc');
+})();
 const userMap = {
   "cranky": 'UCJ2tGQAyeWDopEMA0iAVSRQ'
 }
 const clanMap = {
-  "ckzo": '%23PR09UCRR'
+  "ckzo": '#PR09UCRR'
 }
-const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjlmMDkwMTgyLTNlODMtNGE1Zi05NmM4LTJjYTY4NTlkM2QxZiIsImlhdCI6MTY2MTU4NDAyNCwic3ViIjoiZGV2ZWxvcGVyL2UwZWEyYjE4LTE1NzItNDA2YS1jYzkzLWFiNDYzMDA4MjY0YSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjIyMy4yMjYuMTg5LjExNiIsIjAuMC4wLjAiXSwidHlwZSI6ImNsaWVudCJ9XX0.yZxDiXvc3UOT9bwdFPjmF5XPCDvLgbyCQqwYAWGcklLW7ckJ7HUZj-lSEfLDe2XaTDKWeZB-CDy0pDq4GAKUoA";
-const config = {
-  headers: { Authorization: `Bearer ${token}` }
-};
 
 async function fetchYoutubeVideoList(req, res) {
   console.log('Fetching youtube video list');
@@ -34,26 +36,37 @@ async function fetchYoutubeVideoList(req, res) {
   }
 }
 
+async function getPlayerList(clanTag) {
+  const clan = await client.getClan(clanTag);
+  return await clan.fetchMembers().then(member => {
+    return member;
+  });
+}
+
+const getCircularReplacer = () => {
+  const seen = new WeakSet();
+  return (key, value) => {
+    if (typeof value === 'object' && value !== null) {
+      if (seen.has(value)) {
+        return;
+      }
+      seen.add(value);
+    }
+    return value;
+  };
+};
+
+
 async function fetchAllPlayersDetails(req, res) {
-  console.log('Fetching all players list of ', req.body);
-  var playerList = [];
+  console.log('Fetching all players list of ', req.body.clan);
   if (clanMap[req.body.clan]) {
     try {
-      await axios.get("https://api.clashofclans.com/v1/clans/" + clanMap[req.body.clan] + "/members", config)
-        .then((cocRes) => {
-          console.log('data found');
-          Promise.all(cocRes.data.items.map(item => {
-            return new Promise((resolve, reject) => {
-              axios.get("https://api.clashofclans.com/v1/players/%23" + item.tag.substring(1), config).then(
-                (playerRes) => {
-                  resolve(playerRes.data)
-                }
-              ).catch((err) => reject(err));
-            })
-          })).then(data => {
-            res.send(data);
-          }).catch(err => console.log(err))
-        })
+      await getPlayerList(clanMap[req.body.clan]).then(
+        players => {
+          delete players[0].client;
+          res.send(JSON.stringify({clanPlayers: players}, getCircularReplacer()));
+        }
+      )
     } catch (err) {
       console.log('Error occured:- ', err);
       res.send(err);
