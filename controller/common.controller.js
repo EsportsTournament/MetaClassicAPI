@@ -40,7 +40,7 @@ async function fetchYoutubeVideoList(req, res) {
 async function getPlayerList(clanTag) {
   const clan = await client.getClan(clanTag);
   return await clan.fetchMembers().then(member => {
-    return {"clan": clan, "members": member};
+    return {"clan": clan, "members": member, "clanLink": clan.shareLink};
   });
 }
 
@@ -68,7 +68,7 @@ async function fetchAllPlayersDetails(req, res) {
       await getPlayerList(clanMap[req.body.clan]).then(
         clanInfo => {
           delete clanInfo.members[0].client;
-          res.send(JSON.stringify({clanPlayers: clanInfo.members, clan: clanInfo.clan}, getCircularReplacer()));
+          res.send(JSON.stringify({clanPlayers: clanInfo.members, clan: clanInfo.clan, clanLink: clanInfo.clanLink}, getCircularReplacer()));
         }
       )
     } catch (err) {
