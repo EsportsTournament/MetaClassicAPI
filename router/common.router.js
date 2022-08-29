@@ -17,4 +17,9 @@ router.post('/fetchAllPlayersDetails', (req, res) => {
     fetchAllPlayersDetails(req, res);
 });
 
-module.exports = router; 
+router.post('/fetchCurrentWarDetails', (req, res) => {
+    console.log('hitting coc');
+    fetchCurrentWarDetails(req, res);
+});
+
+module.exports = router;
