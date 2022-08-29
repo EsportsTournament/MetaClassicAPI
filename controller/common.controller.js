@@ -104,4 +104,4 @@ async function fetchCurrentWarDetails(req, res) {
   }
 }
 
-module.exports = { fetchYoutubeVideoList, fetchAllPlayersDetails };
+module.exports = { fetchYoutubeVideoList, fetchAllPlayersDetails, fetchCurrentWarDetails };

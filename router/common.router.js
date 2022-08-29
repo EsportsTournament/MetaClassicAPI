@@ -1,5 +1,5 @@
 const express = require('express');
-const { fetchYoutubeVideoList, fetchAllPlayersDetails } = require('../controller/common.controller');
+const { fetchYoutubeVideoList, fetchAllPlayersDetails, fetchCurrentWarDetails } = require('../controller/common.controller');
 
 var router = express.Router();
 
