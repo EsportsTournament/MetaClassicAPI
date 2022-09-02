@@ -13,6 +13,7 @@ const userMap = {
 }
 
 const clanMap = {
+  // "ckzo": '#LUJJJORV'
   "ckzo": '#PR09UCRR'
 }
 
@@ -45,7 +46,41 @@ async function getPlayerList(clanTag) {
 }
 
 async function getWarDetails(clantag) {
-  return await client.getClanWar(clantag);
+  return client.getCurrentWar(clantag).then(
+    (currentWar) => { 
+      let warMemberList = [];
+      currentWar.clan.members.forEach( member => {
+        const attacker = {
+          name: member.name,
+          score: 0,
+          pos: member.mapPosition,
+          th: member.townHallLevel,
+          attacks: [],
+          defence: JSON.parse(JSON.stringify(currentWar.getDefenses(member.tag), getCircularReplacer()))
+        };
+        member.attacks.forEach(attack => {
+          const newAttack = currentWar.getAttack(attack.attackerTag, attack.defenderTag);
+          const defender = currentWar.getMember(attack.defenderTag);
+          const attackToSend = { 
+            ...newAttack, 
+            defenderName: defender.name,
+            defenderTh: defender.townHallLevel, 
+            defenderMapPosition: defender.mapPosition
+           };
+          attacker.attacks.push(JSON.parse(JSON.stringify(attackToSend, getCircularReplacer())));
+          attacker.score += attack.destruction
+        });
+        attacker.defence.forEach( defence => {
+          attacker.score += (100 - defence.destruction);
+        })
+        warMemberList.push(attacker);
+      });
+      return {
+        currentWar: currentWar,
+        members: warMemberList
+      };
+    }
+  )
 }
 
 const getCircularReplacer = () => {
@@ -89,7 +124,7 @@ async function fetchCurrentWarDetails(req, res) {
     try {
       await getWarDetails(clanMap[req.body.clan]).then(
         war => {
-          res.send(JSON.stringify({clanWar: war}, getCircularReplacer()));
+          res.send(JSON.stringify(war, getCircularReplacer()));
         }
       )
     } catch (err) {
