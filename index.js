@@ -16,6 +16,9 @@ const commonRouter = require('./router/common.router');
 const UI_ROOT_URI = ["http://localhost:3000","https://www.metclan.xyz"]; 
 const app = express();
 const morgan = require('morgan');
+const compression = require('compression')
+
+app.use(compression())
 
 app.use(cors(
     {
