@@ -5,18 +5,18 @@
 process.env.NODE_CONFIG_DIR = __dirname + '/config/';
 // config = require('config');
 
-require('./db/db');
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const properties = require('./config/properties');
-const userRouter = require('./router/user.router');
-const tournamentRouter = require('./router/tournament.router');
-const commonRouter = require('./router/common.router');
+import './db/db';
+import express from 'express';
+import cors from 'cors';
+import { urlencoded, json } from 'body-parser';
+import { port } from './config/properties';
+import userRouter from './router/user.router';
+import tournamentRouter from './router/tournament.router';
+import commonRouter from './router/common.router';
 const UI_ROOT_URI = ["http://localhost:3000","https://www.metclan.xyz"]; 
 const app = express();
-const morgan = require('morgan');
-const compression = require('compression')
+import morgan from 'morgan';
+import compression from 'compression';
 
 app.use(compression())
 
@@ -29,10 +29,10 @@ app.use(cors(
       }
 ));
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(urlencoded({ extended: false }))
 
 // parse application/json
-app.use(bodyParser.json())
+app.use(json())
 
 app.use(morgan('dev'));
 
@@ -42,6 +42,6 @@ app.use("/common", commonRouter);
 
 app.get('/', (req, res) => { res.json({ msg: 'Meta Classic Backend is up and live.' }) });
 
-app.listen(process.env.PORT || properties.port, () => {
-    console.log('Express is serving at port: ', process.env.PORT || properties.port);
+app.listen(process.env.PORT || port, () => {
+    console.log('Express is serving at port: ', process.env.PORT || port);
 });
