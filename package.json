@@ -20,7 +20,7 @@
     "mongoose": "^6.4.6",
     "morgan": "^1.10.0",
     "node-telegram-bot-api": "^0.59.0",
-    "nodemon": "^2.0.16",
+    "nodemon": "^2.0.20",
     "path": "^0.12.7",
     "properties-reader": "^2.2.0",
     "redis": "^4.1.0"
